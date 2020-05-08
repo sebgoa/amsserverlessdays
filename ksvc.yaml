@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       containers:
-      - image: gcr.io/triggermesh/calllambda
+      - image: gcr.io/triggermesh/calllambda:v0.0.2
         volumeMounts:
         - name: creds
           mountPath: /root/.aws

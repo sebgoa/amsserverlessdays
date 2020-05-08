@@ -1,0 +1,23 @@
+apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: ContainerSource
+metadata:
+  name: sqs-source
+spec:
+    env:
+        -
+            name: AWS_ACCESS_KEY_ID
+            valueFrom: {secretKeyRef: {key: aws_access_key_id, name: awscreds}}
+        -
+            name: AWS_SECRET_ACCESS_KEY
+            valueFrom: {secretKeyRef: {key: aws_secret_access_key, name: awscreds}}
+        -
+            name: AWS_REGION
+            value: us-east-1
+        -
+            name: QUEUE
+            value: triggermesh
+    image: 'gcr.io/triggermesh/awssqs:latest'
+    sink:
+        apiVersion: eventing.knative.dev/v1alpha1
+        kind: Broker
+        name: default
