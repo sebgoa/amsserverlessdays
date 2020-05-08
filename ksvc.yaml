@@ -1,0 +1,19 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: call-lambda
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io/triggermesh/calllambda
+        volumeMounts:
+        - name: creds
+          mountPath: /root/.aws
+        env:
+          - name: functionName
+            value: "message-dumper"
+      volumes:
+      - name: creds
+        secret:
+          secretName: awscredsfile
